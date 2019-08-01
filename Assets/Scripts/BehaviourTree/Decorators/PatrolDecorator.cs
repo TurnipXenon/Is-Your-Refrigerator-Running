@@ -24,6 +24,7 @@ public class PatrolDecorator : Decorator
         {
             Debug.LogWarning("Invalid index: Index is at " + patrol.currentIndex.ToString()
                 + " when transform child count is " + patrol.waypointList.childCount.ToString());
+            SetNodeState(context, NodeState.Failure);
             return NodeState.Failure;
         }
 
@@ -48,6 +49,7 @@ public class PatrolDecorator : Decorator
             }
         }
 
+        SetNodeState(context, result);
         return result;
     }
 }

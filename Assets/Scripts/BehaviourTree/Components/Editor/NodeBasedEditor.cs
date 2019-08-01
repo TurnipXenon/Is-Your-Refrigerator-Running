@@ -6,6 +6,7 @@ using UnityEngine;
 public class NodeBasedEditor : EditorWindow
 {
     private Node rootNode;
+    private Context context;
 
     private const int DefaultNodeHeight = 50;
     private const int DefaultNodeWidth = 200;
@@ -60,13 +61,15 @@ public class NodeBasedEditor : EditorWindow
         if (Selection.activeObject is Node)
         {
             newRootNode = (Node)Selection.activeObject;
+            context = null;
         }
-        if (Selection.activeGameObject)
+        else if (Selection.activeGameObject)
         {
             Brain brain = Selection.activeGameObject.GetComponent<Brain>();
             if (brain)
             {
                 newRootNode = brain.rootNode;
+                context = brain.context;
             }
         }
 
@@ -79,7 +82,7 @@ public class NodeBasedEditor : EditorWindow
 
         if (rootNode)
         {
-            rootNode.DrawGUI();
+            rootNode.DrawGUI(context);
         }
 
         //DrawNodes();

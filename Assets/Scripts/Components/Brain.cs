@@ -10,6 +10,6 @@ public class Brain : MonoBehaviour
 
     public void OnEnable()
     {
-        context = new Context();
+        context = new Context(rootNode);
     }
 }

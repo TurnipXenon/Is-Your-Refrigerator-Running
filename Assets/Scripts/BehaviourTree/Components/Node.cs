@@ -10,14 +10,21 @@ public abstract class Node : ScriptableObject
 {
 #if UNITY_EDITOR
     #region Editor GUI
+    public const float DEFAULT_WIDTH = 200f;
+    public const float DEFAULT_HEIGHT = 72f;
+
+    [Header("Debug details")]
+    public float lastStartTime;
+    public NodeState nodeState;
+
     [Header("Unity GUI Editor")]
-    public Rect rect = new Rect(32f, 32f, 200f, 50f);
+    public Rect rect = new Rect(32f, 32f, 200f, 72f);
     public GUIStyle defaultNodeStyle = new GUIStyle();
     public GUIStyle selectedNodeStyle = new GUIStyle();
     public GUIStyle inPointStyle;
     public GUIStyle outPointStyle;
 
-    public Vector2 DistanceFromParent = new Vector2(300f, 0f);
+    public Vector2 offset = new Vector2(300f, 0f);
     private NodeUI nodeUI;
 
     public void Setup()
@@ -43,14 +50,35 @@ public abstract class Node : ScriptableObject
         nodeUI = new NodeUI(this);
     }
 
-    public void DrawGUI()
+    public void DrawGUI(Context context)
     {
         if (nodeUI == null)
         {
             Setup();
         }
 
-        nodeUI.Draw();
+        nodeUI.Draw(context);
+
+        Composite composite = this as Composite;
+        Decorator decorator = this as Decorator;
+
+        if (composite != null)
+        {
+
+        }
+        else if (decorator != null)
+        {
+            Vector2 offset = new Vector2(
+                rect.x + DEFAULT_WIDTH * 1.5f,
+                rect.y);
+            decorator.node.DrawGUI(context, offset);
+        }
+    }
+
+    private void DrawGUI(Context context, Vector2 offset)
+    {
+        this.offset = offset;
+        DrawGUI(context);
     }
     #endregion
 #endif
@@ -63,6 +91,18 @@ public abstract class Node : ScriptableObject
 
     /* Implementing classes use this method to evaluate the desired set of conditions */
     public abstract NodeState Evaluate(Context context);
+
+    protected void SetNodeState(Context context, NodeState nodeState)
+    {
+#if UNITY_EDITOR
+        if (this == context.rootNode)
+        {
+            context.nodeStateDict.Clear();
+        }
+
+        context.nodeStateDict[this.GetInstanceID()] = nodeState;
+#endif
+    }
 }
 
 //#if UNITY_EDITOR
@@ -72,6 +112,7 @@ public class NodeUI
 {
     private Node node;
     public const float MARGIN = 12.0f;
+    private Vector2 MARGIN_VECTOR = new Vector2(MARGIN, MARGIN);
 
     public string title;
     public bool isDragged;
@@ -95,19 +136,32 @@ public class NodeUI
         node.rect.position += delta;
     }
 
-    public void Draw()
+    public void Draw(Context context)
     {
-        Debug.Log("Drawing");
         Rect usableSpace = new Rect(node.rect);
-        usableSpace.position += new Vector2(MARGIN, MARGIN);
-        usableSpace.width -= (2 * MARGIN);
-        usableSpace.height = EditorGUIUtility.singleLineHeight;
+        usableSpace.position += node.offset;
+        Rect nodeTypeRect = new Rect(usableSpace);
+        nodeTypeRect.position += MARGIN_VECTOR;
+        nodeTypeRect.width -= (2 * MARGIN);
+        nodeTypeRect.height = EditorGUIUtility.singleLineHeight;
 
         //inPoint.Draw();
         //outPoint.Draw();
 
-        GUI.Box(node.rect, title, style);
-        node = EditorGUI.ObjectField(usableSpace, node, typeof(Node), false) as Node;
+        GUI.Box(usableSpace, title, style);
+        node = EditorGUI.ObjectField(nodeTypeRect, node, typeof(Node), false) as Node;
+        if (context != null)
+        {
+            Rect labelRect = new Rect(nodeTypeRect);
+            labelRect.y += EditorGUIUtility.singleLineHeight * 1.5f;
+
+            string status = "None";
+            if (context.nodeStateDict.ContainsKey(node.GetInstanceID()))
+            {
+                status = context.nodeStateDict[node.GetInstanceID()].ToString();
+            }
+            EditorGUI.LabelField(labelRect, "Status: " + status);
+        }
     }
 
     public bool ProcessEvents(Event e)

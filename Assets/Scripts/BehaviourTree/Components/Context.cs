@@ -6,8 +6,13 @@ using UnityEngine;
 public class Context
 {
     private Hashtable hashtable = new Hashtable();
+    public Node rootNode;
 
-    public Context() { }
+#if UNITY_EDITOR
+    public Dictionary<int, NodeState> nodeStateDict = new Dictionary<int, NodeState>();
+#endif
+
+    public Context(Node rootNode) { }
 
     public void Set<T>(ContextName contextName, T value)
     {
