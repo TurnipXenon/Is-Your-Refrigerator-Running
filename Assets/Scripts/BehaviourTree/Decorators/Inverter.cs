@@ -9,7 +9,7 @@ public class Inverter : Decorator
      * as running */
     public override NodeState Evaluate(Context context)
     {
-        switch (m_node.Evaluate(context))
+        switch (node.Evaluate(context))
         {
             case NodeState.Failure:
                 return NodeState.Success;

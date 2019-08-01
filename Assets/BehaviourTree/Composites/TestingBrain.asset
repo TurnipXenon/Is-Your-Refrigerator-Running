@@ -16,8 +16,8 @@ MonoBehaviour:
   nodeState: 0
   rect:
     serializedVersion: 2
-    x: 32
-    y: 32
+    x: 7
+    y: 42
     width: 200
     height: 72
   defaultNodeStyle:
@@ -294,5 +294,6 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
-  DistanceFromParent: {x: 0, y: 0}
-  m_nodes: []
+  nodeList:
+  - {fileID: 11400000, guid: c37d420041685af4186e14d70abb3481, type: 2}
+  - {fileID: 11400000, guid: c37d420041685af4186e14d70abb3481, type: 2}
