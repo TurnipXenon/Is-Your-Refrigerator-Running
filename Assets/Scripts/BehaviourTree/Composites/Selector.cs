@@ -14,28 +14,25 @@ public class Selector : Composite
      * it will report a failure instead.*/
     public override NodeState Evaluate(Context context)
     {
-        foreach (Node node in m_nodes)
+        foreach (Node node in nodeList)
         {
             switch (node.Evaluate(context))
             {
                 case NodeState.Failure:
                     continue;
                 case NodeState.Success:
-                    m_nodeState = NodeState.Success;
-                    return m_nodeState;
+                    return NodeState.Success;
                 case NodeState.Running:
-                    m_nodeState = NodeState.Running;
-                    return m_nodeState;
+                    return NodeState.Running;
                 default:
                     continue;
             }
         }
-        m_nodeState = NodeState.Failure;
-        return m_nodeState;
+        return NodeState.Failure;
     }
 
     public void Output()
     {
-        Debug.Log("Output size: " + m_nodes.Count.ToString());
+        Debug.Log("Output size: " + nodeList.Count.ToString());
     }
 }

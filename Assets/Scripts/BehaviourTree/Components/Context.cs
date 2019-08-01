@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Context : ICloneable
+public class Context
 {
     private Hashtable hashtable = new Hashtable();
+    public Node rootNode;
 
-    public Context() { }
+#if UNITY_EDITOR
+    public Dictionary<int, NodeState> nodeStateDict = new Dictionary<int, NodeState>();
+#endif
 
-    public Context(Context other)
-    {
-        this.hashtable = (Hashtable)other.hashtable.Clone();
-    }
+    public Context(Node rootNode) { }
 
     public void Set<T>(ContextName contextName, T value)
     {
@@ -35,10 +35,5 @@ public class Context : ICloneable
             Debug.LogWarning(contextName.ToString() + " has a different type from what's being asked");
         }
         return default;
-    }
-
-    public object Clone()
-    {
-        return new Context(this);
     }
 }

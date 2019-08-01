@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59628bf58902e0046a346a954969a414, type: 3}
   m_Name: PatrolDecorator
   m_EditorClassIdentifier: 
-  NodeHeight: 0
-  NodeWidth: 0
-  DistanceFromRoot: {x: 0, y: 0}
-  m_node: {fileID: 11400000, guid: b857840e6d12362429df036e1ea05524, type: 2}
+  developerDescription: 
+  node: {fileID: 11400000, guid: b857840e6d12362429df036e1ea05524, type: 2}
   patrolName: {fileID: 11400000, guid: 622be1077810e4942a25d7aa65067567, type: 2}
   navMeshAgentName: {fileID: 11400000, guid: ddfc5c45f13d03a4a9a801377d035cd2, type: 2}
   locationName: {fileID: 11400000, guid: 5488823810578f04485eb2d9a9c3b255, type: 2}

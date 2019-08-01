@@ -15,24 +15,21 @@ public class Sequence : Composite
     {
         bool anyChildRunning = false;
 
-        foreach (Node node in m_nodes)
+        foreach (Node node in nodeList)
         {
             switch (node.Evaluate(context))
             {
                 case NodeState.Failure:
-                    m_nodeState = NodeState.Failure;
-                    return m_nodeState;
+                    return NodeState.Failure;
                 case NodeState.Success:
                     continue;
                 case NodeState.Running:
                     anyChildRunning = true;
                     continue;
                 default:
-                    m_nodeState = NodeState.Success;
-                    return m_nodeState;
+                    return NodeState.Success;
             }
         }
-        m_nodeState = anyChildRunning ? NodeState.Running : NodeState.Success;
-        return m_nodeState;
+        return anyChildRunning ? NodeState.Running : NodeState.Success;
     }
 }
