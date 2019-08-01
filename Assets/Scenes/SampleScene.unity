@@ -542,8 +542,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.3826834, y: 0.0000000047240585, z: -0.000000001956771, w: 0.92387956}
-  m_LocalPosition: {x: -0.0000011362106, y: 12.020815, z: -12.020816}
+  m_LocalRotation: {x: 0.38268343, y: 0.000000043662666, z: -0.00000001808567, w: 0.92387956}
+  m_LocalPosition: {x: -0.0000004197141, y: 12.020814, z: -12.020816}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -787,8 +787,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1738360663}
-  m_LocalRotation: {x: 0.3826834, y: 0.0000000047240585, z: -0.000000001956771, w: 0.92387956}
-  m_LocalPosition: {x: -0.0000011362106, y: 12.020815, z: -12.020816}
+  m_LocalRotation: {x: 0.38268343, y: 0.000000043662666, z: -0.00000001808567, w: 0.92387956}
+  m_LocalPosition: {x: -0.0000004197141, y: 12.020814, z: -12.020816}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 361142531}
@@ -870,9 +870,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1643d6345a4a94abb7324a494d3c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rootNode: {fileID: 11400000, guid: c37d420041685af4186e14d70abb3481, type: 2}
   patrol:
     waypointList: {fileID: 485647860}
-  patrolAI: {fileID: 11400000, guid: c37d420041685af4186e14d70abb3481, type: 2}
   patrolName: {fileID: 11400000, guid: 622be1077810e4942a25d7aa65067567, type: 2}
 --- !u!195 &1939352280
 NavMeshAgent:

@@ -21,17 +21,14 @@ public class Selector : Composite
                 case NodeState.Failure:
                     continue;
                 case NodeState.Success:
-                    m_nodeState = NodeState.Success;
-                    return m_nodeState;
+                    return NodeState.Success;
                 case NodeState.Running:
-                    m_nodeState = NodeState.Running;
-                    return m_nodeState;
+                    return NodeState.Running;
                 default:
                     continue;
             }
         }
-        m_nodeState = NodeState.Failure;
-        return m_nodeState;
+        return NodeState.Failure;
     }
 
     public void Output()
