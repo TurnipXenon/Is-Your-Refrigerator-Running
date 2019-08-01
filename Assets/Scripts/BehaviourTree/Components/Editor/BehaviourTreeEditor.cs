@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -25,6 +25,9 @@ public class BehaviourTreeEditor : EditorWindow
         context = Selection.activeGameObject?.GetComponent<Brain>().context;
         rootNode = EditorGUILayout.ObjectField(rootNode, typeof(Node), false) as Node;
 
+        rootNode.developerDescription = 
+            EditorGUILayout.TextField("Description", rootNode.developerDescription);
+
         if (rootNode != null)
         {
             DisplayNode(rootNode);
@@ -37,6 +40,8 @@ public class BehaviourTreeEditor : EditorWindow
     {
         EditorGUILayout.BeginVertical("Box");
 
+        EditorGUILayout.Space();
+
         if (context != null)
         {
             string status = "None";
@@ -45,6 +50,20 @@ public class BehaviourTreeEditor : EditorWindow
                 status = context.nodeStateDict[node.GetInstanceID()].ToString();
             }
             EditorGUILayout.LabelField("Status: " + status.ToString());
+        }
+        else
+        {
+            SerializedObject serializedObject = new SerializedObject(node);
+            System.Type type = node.GetType();
+            foreach (FieldInfo item in type.GetFields())
+            {
+                if (item.FieldType == typeof(ContextName))
+                {
+                    SerializedProperty property = serializedObject.FindProperty(item.Name);
+                    EditorGUILayout.PropertyField(property);
+                }
+            }
+            serializedObject.ApplyModifiedProperties();
         }
 
         EditorGUILayout.Space();
