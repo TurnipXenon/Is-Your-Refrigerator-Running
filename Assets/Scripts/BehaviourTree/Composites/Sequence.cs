@@ -15,7 +15,7 @@ public class Sequence : Composite
     {
         bool anyChildRunning = false;
 
-        foreach (Node node in m_nodes)
+        foreach (Node node in nodeList)
         {
             switch (node.Evaluate(context))
             {

@@ -14,7 +14,7 @@ public class Selector : Composite
      * it will report a failure instead.*/
     public override NodeState Evaluate(Context context)
     {
-        foreach (Node node in m_nodes)
+        foreach (Node node in nodeList)
         {
             switch (node.Evaluate(context))
             {
@@ -33,6 +33,6 @@ public class Selector : Composite
 
     public void Output()
     {
-        Debug.Log("Output size: " + m_nodes.Count.ToString());
+        Debug.Log("Output size: " + nodeList.Count.ToString());
     }
 }

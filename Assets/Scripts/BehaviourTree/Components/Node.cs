@@ -2,6 +2,7 @@
 // by Natasha Mathur
 #if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 #endif
 using UnityEngine;
@@ -18,16 +19,21 @@ public abstract class Node : ScriptableObject
     public NodeState nodeState;
 
     [Header("Unity GUI Editor")]
-    public Rect rect = new Rect(32f, 32f, 200f, 72f);
+    public Rect rect = new Rect(0f, 0f, 200f, 72f);
     public GUIStyle defaultNodeStyle = new GUIStyle();
     public GUIStyle selectedNodeStyle = new GUIStyle();
     public GUIStyle inPointStyle;
     public GUIStyle outPointStyle;
 
-    public Vector2 offset = new Vector2(300f, 0f);
     private NodeUI nodeUI;
 
     public void Setup()
+    {
+        Setup(Vector2.zero);
+    }
+
+
+    public void Setup(Vector2 offset)
     {
         defaultNodeStyle = new GUIStyle();
         defaultNodeStyle.normal.background = EditorGUIUtility.Load("builtin skins/darkskin/images/node1.png") as Texture2D;
@@ -48,15 +54,36 @@ public abstract class Node : ScriptableObject
         outPointStyle.border = new RectOffset(4, 4, 12, 12);
 
         nodeUI = new NodeUI(this);
+
+        rect.position = offset;
+        Composite composite = this as Composite;
+        Decorator decorator = this as Decorator;
+
+        if (composite != null)
+        {
+            List<Node> nodeList = composite.nodeList;
+            float HALFHEIGHT = DEFAULT_HEIGHT / 2f;
+            float inc = DEFAULT_HEIGHT * 1.5f;
+            Vector2 newOffset = offset + new Vector2(
+                DEFAULT_WIDTH * 1.5f, 
+                rect.y - ((nodeList.Count - 1) * HALFHEIGHT));
+            foreach (Node item in nodeList)
+            {
+                item.Setup(newOffset);
+                newOffset.y += inc;
+            }
+        }
+        else if (decorator != null)
+        {
+            Vector2 newOffset = offset + new Vector2(
+                DEFAULT_WIDTH * 1.5f,
+                rect.y);
+            decorator.node.Setup(newOffset);
+        }
     }
 
     public void DrawGUI(Context context)
     {
-        if (nodeUI == null)
-        {
-            Setup();
-        }
-
         nodeUI.Draw(context);
 
         Composite composite = this as Composite;
@@ -64,21 +91,36 @@ public abstract class Node : ScriptableObject
 
         if (composite != null)
         {
-
+            List<Node> nodeList = composite.nodeList;
+            foreach (Node item in nodeList)
+            {
+                item.DrawGUI(context);
+            }
         }
         else if (decorator != null)
         {
-            Vector2 offset = new Vector2(
-                rect.x + DEFAULT_WIDTH * 1.5f,
-                rect.y);
-            decorator.node.DrawGUI(context, offset);
+            decorator.node.DrawGUI(context);
         }
     }
 
-    private void DrawGUI(Context context, Vector2 offset)
+    public void Drag(Vector2 delta)
     {
-        this.offset = offset;
-        DrawGUI(context);
+        nodeUI.Drag(delta);
+
+        Composite composite = this as Composite;
+        Decorator decorator = this as Decorator;
+
+        if (composite != null)
+        {
+            foreach (Node item in composite.nodeList)
+            {
+                item.Drag(delta);
+            }
+        }
+        else if (decorator != null)
+        {
+            decorator.node.Drag(delta);
+        }
     }
     #endregion
 #endif
@@ -139,7 +181,6 @@ public class NodeUI
     public void Draw(Context context)
     {
         Rect usableSpace = new Rect(node.rect);
-        usableSpace.position += node.offset;
         Rect nodeTypeRect = new Rect(usableSpace);
         nodeTypeRect.position += MARGIN_VECTOR;
         nodeTypeRect.width -= (2 * MARGIN);

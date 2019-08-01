@@ -77,7 +77,7 @@ public class NodeBasedEditor : EditorWindow
         {
 
             rootNode = newRootNode;
-            //rootNode.SetUp();
+            rootNode.Setup();
         }
 
         if (rootNode)
@@ -91,7 +91,7 @@ public class NodeBasedEditor : EditorWindow
         //DrawConnectionLine(Event.current);
 
         //ProcessNodeEvents(Event.current);
-        //ProcessEvents(Event.current);
+        ProcessEvents(Event.current);
 
         if (GUI.changed) Repaint();
     }
@@ -176,47 +176,41 @@ public class NodeBasedEditor : EditorWindow
     //    }
     //}
 
-    //private void ProcessEvents(Event e)
-    //{
-    //    drag = Vector2.zero;
+    private void ProcessEvents(Event e)
+    {
+        drag = Vector2.zero;
 
-    //    switch (e.type)
-    //    {
-    //        case EventType.MouseDown:
-    //            if (e.button == 0)
-    //            {
-    //                ClearConnectionSelection();
-    //            }
+        switch (e.type)
+        {
+            case EventType.MouseDown:
+                if (e.button == 0)
+                {
+                    //ClearConnectionSelection();
+                }
 
-    //            if (e.button == 1)
-    //            {
-    //                ProcessContextMenu(e.mousePosition);
-    //            }
-    //            break;
+                if (e.button == 1)
+                {
+                    //ProcessContextMenu(e.mousePosition);
+                }
+                break;
 
-    //        case EventType.MouseDrag:
-    //            if (e.button == 0)
-    //            {
-    //                OnDrag(e.delta);
-    //            }
-    //            break;
-    //    }
-    //}
+            case EventType.MouseDrag:
+                if (e.button == 0)
+                {
+                    OnDrag(e.delta);
+                }
+                break;
+        }
+    }
 
-    //private void OnDrag(Vector2 delta)
-    //{
-    //    drag = delta;
+    private void OnDrag(Vector2 delta)
+    {
+        drag = delta;
 
-    //    if (nodes != null)
-    //    {
-    //        for (int i = 0; i < nodes.Count; i++)
-    //        {
-    //            nodes[i].Drag(delta);
-    //        }
-    //    }
+        rootNode.Drag(delta);
 
-    //    GUI.changed = true;
-    //}
+        GUI.changed = true;
+    }
 
     //private void ProcessNodeEvents(Event e)
     //{
