@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     public float TestingNum;
     public Vector3 testingVector;
 
+    public Vector2 mouse = new Vector2();
+
     private void Start()
     {
         groundChecker = rigidbody.GetComponent<Transform>()?.GetChild(0);

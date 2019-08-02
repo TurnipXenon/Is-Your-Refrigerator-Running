@@ -27,8 +27,12 @@ public class CharacterUI : MonoBehaviour
 
     private void Update()
     {
+        textDetail.text = playerController.inputs.ToString();
+    }
+
+    private void LateUpdate()
+    {
         transform.position = follow.position + offset;
         transform.rotation = camera.transform.rotation;
-        textDetail.text = playerController.inputs.ToString();
     }
 }
