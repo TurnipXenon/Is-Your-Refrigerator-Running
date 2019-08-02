@@ -2,7 +2,6 @@
 // by Natasha Mathur
 public class Inverter : Decorator
 {
-    public Inverter(Node node) : base(node) { }
 
     /* Reports a success if the child fails and 
      * a failure if the child succeeds. Running will report 

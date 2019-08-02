@@ -11,8 +11,6 @@ public class PatrolDecorator : Decorator
     public ContextName navMeshAgentName;
     public ContextName locationName;
 
-    public PatrolDecorator(Node node) : base(node) { }
-
     /** Running: On the way
         Success: Reached final destination
         Failure: Can't go */
