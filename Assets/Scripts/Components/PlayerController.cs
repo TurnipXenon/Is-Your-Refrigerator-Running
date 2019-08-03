@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Variables")]
     public float speed = 5f;
+    public float torqueInfluence = 0.1f;
     public float jumpHeight = 2f;
     public float groundDistance = 0.2f;
     public float dashDistance = 5f;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Components")]
     public new Rigidbody rigidbody;
     public new Transform transform;
+    public Transform stableBody;
 
     [Header("References")]
     public Transform cameraTransform;
@@ -26,17 +28,11 @@ public class PlayerController : MonoBehaviour
     /** Turn private */
     [Header("Public for debugging")]
     public Vector3 inputs;
-    public Vector3 newInputs;
+
+    public Vector3 relativeInput;
     public Vector3 cameraForward;
-    public Vector3 inputRotation;
-    public Vector3 torqueTest;
-    public float torqueInfluence = 0.1f;
-    public float result;
 
-    public float TestingNum;
-    public Vector3 testingVector;
-
-    public Vector2 mouse = new Vector2();
+    public float yaw;
 
     private void Start()
     {
@@ -48,44 +44,139 @@ public class PlayerController : MonoBehaviour
         inputs = Vector3.zero;
         inputs.x = Input.GetAxis("Horizontal");
         inputs.z = Input.GetAxis("Vertical");
-        inputs = Vector3.Normalize(inputs);
 
         if (inputs == Vector3.zero)
         {
             return;
         }
 
-        // get the direction of the input 
-        newInputs = cameraTransform.TransformDirection(inputs);
-        newInputs.y = 0f;
-        cameraForward = cameraTransform.forward;
-        cameraForward.y = 0;
-        result = Vector3.SignedAngle(cameraForward, newInputs, Vector3.up);
-
-        // since the camera moves with movement and movement is based on the camera
-        // weird things happen when we rotate to 180 since everything can't make up
-        // whether to go from the left or right
-        if (result > 179f)
-        {
-            result = 178f;
-        }
-        else if (result < -179f)
-        {
-            result = 178f;
-        }
+        inputs.Normalize();
+        relativeInput = cameraTransform.TransformDirection(inputs);
+        relativeInput.y = 0;
+        relativeInput.Normalize();
+        
+        yaw = inputs.x;
 
         // rotate here!!!
-        rigidbody.AddTorque(0f, result * torqueInfluence * Time.deltaTime, 0f, ForceMode.VelocityChange);
-
-        // try moving
-        if (inputs.z > 0)
-        {
-            Vector3 direction = Vector3.Normalize(transform.forward);
-            TestingNum = inputs.z * speed * Time.deltaTime;
-            testingVector = direction * TestingNum;
-            rigidbody.AddForce(testingVector, ForceMode.Impulse);
-        }
+        rigidbody.AddTorque(0f, yaw * torqueInfluence * Time.deltaTime, 0f, ForceMode.VelocityChange);
+        rigidbody.AddForce(relativeInput * speed * Mathf.Abs(inputs.z) * Time.deltaTime, ForceMode.Impulse);
     }
+
+    //private void Update()
+    //{
+    //    inputs = Vector3.zero;
+    //    inputs.x = Input.GetAxis("Horizontal");
+    //    inputs.z = Input.GetAxis("Vertical");
+
+    //    from https://docs.unity3d.com/ScriptReference/Vector3.Dot.html
+
+    //    forward = stableBody.forward;
+    //    Vector3 toCamera = cameraTransform.position - transform.position;
+    //    toCamera.y = 0f;
+
+    //    if (inputs == Vector3.zero)
+    //    {
+    //        return;
+    //    }
+
+    //    inputs.Normalize();
+
+    //    rotation
+    //   cameraForward = cameraTransform.TransformDirection(inputs);
+    //    cameraForward.y = 0f;
+    //    cameraForward.Normalize();
+    //    moveVector = cameraForward * speed * Time.deltaTime * inputs.magnitude;
+    //    transformForward = transform.forward;
+    //    transformForward.y = 0f;
+    //    yaw = Vector3.SignedAngle(transformForward, moveVector, Vector3.up);
+
+    //    pitch = speed * Time.deltaTime * Mathf.Max(inputs.x, inputs.z);
+    //    Debug.DrawLine(transform.position, (transform.position + forward * 3), Color.red);
+    //    Debug.DrawLine(transform.position, (transform.position + toCamera * 3), Color.blue);
+
+    //    cosAngle = Vector3.Dot(toCamera, forward);
+    //    if (cosAngle < 0)
+    //    {
+    //        result = "Camera at back";
+    //    }
+    //    else
+    //    {
+    //        result = "Camera at front";
+    //        pitch *= -1;
+    //    }
+
+    //    move here
+    //    rigidbody.AddTorque(pitch, 0f, 0f, ForceMode.Impulse);
+
+    // calculate the vectors for moving forward
+    //cameraForward = cameraTransform.TransformDirection(inputs);
+    //cameraForward.y = 0f;
+    //cameraForward.Normalize();
+    //moveVector = cameraForward * speed * Time.deltaTime * inputs.magnitude;
+    //transformForward = transform.forward;
+    //transformForward.y = 0f;
+    //Debug.DrawRay(transform.position, moveVector, Color.yellow, duration);
+    //yaw = Vector3.SignedAngle(transformForward, moveVector, Vector3.down);
+
+    // since the camera moves with movement and movement is based on the camera
+    // weird things happen when we rotate to 180 since everything can't make up
+    // whether to go from the left or right
+    //if (yaw > 179f)
+    //{
+    //    yaw = 178f;
+    //}
+    //else if (yaw < -179f)
+    //{
+    //    yaw = 178f;
+    //}
+
+    //// rotate here!!!
+    //rigidbody.AddTorque(0f, yaw * torqueInfluence * Time.deltaTime, 0f, ForceMode.VelocityChange);
+    //}
+
+    //private void Update()
+    //{
+    //    inputs = Vector3.zero;
+    //    inputs.x = Input.GetAxis("Horizontal");
+    //    inputs.z = Input.GetAxis("Vertical");
+    //    inputs = Vector3.Normalize(inputs);
+
+    //    if (inputs == Vector3.zero)
+    //    {
+    //        return;
+    //    }
+
+    //    get the direction of the input
+    //    newInputs = cameraTransform.TransformDirection(inputs);
+    //    newInputs.y = 0f;
+    //    cameraForward = cameraTransform.forward;
+    //    cameraForward.y = 0;
+    //    result = Vector3.SignedAngle(cameraForward, newInputs, Vector3.up);
+
+    //    since the camera moves with movement and movement is based on the camera
+    //     weird things happen when we rotate to 180 since everything can't make up
+    //     whether to go from the left or right
+    //    if (result > 179f)
+    //    {
+    //        result = 178f;
+    //    }
+    //    else if (result < -179f)
+    //    {
+    //        result = 178f;
+    //    }
+
+    //    rotate here!!!
+    //   rigidbody.AddTorque(0f, result * torqueInfluence * Time.deltaTime, 0f, ForceMode.VelocityChange);
+
+    //    try moving
+    //    if (inputs.z > 0)
+    //    {
+    //        Vector3 direction = Vector3.Normalize(transform.forward);
+    //        TestingNum = inputs.z * speed * Time.deltaTime;
+    //        testingVector = direction * TestingNum;
+    //        rigidbody.AddForce(testingVector, ForceMode.Impulse);
+    //    }
+    //    }
 
     //void Update()
     //{

@@ -27,7 +27,7 @@ public class CharacterUI : MonoBehaviour
 
     private void Update()
     {
-        textDetail.text = playerController.inputs.ToString();
+
     }
 
     private void LateUpdate()
