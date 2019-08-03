@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7548ac33298b82b459b8ab2bff8b1826, type: 3}
+  m_Name: GameState
+  m_EditorClassIdentifier: 
+  freshnessDuration: 120
+  onLevelEnd: {fileID: 11400000, guid: 6ccb324d0fa879348b313084cfa9278c, type: 2}
+  gameplay: {fileID: 11400000, guid: 171580d3b9a1c8546b06529d9a5839f2, type: 2}
+  gameResult: {fileID: 11400000, guid: 34b75729fb56a8f429aff36e372f1181, type: 2}
+  winningTeam: {fileID: 0}
+  mode: {fileID: 0}
