@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1e91fb5801e1bf4196e8e951c454b81, type: 3}
+  m_Name: IsEnemyNearTask
+  m_EditorClassIdentifier: 
+  developerDescription: 
+  userTransformName: {fileID: 11400000, guid: 6583ddf65c6b3bc4f85aee2b2818a0be, type: 2}
+  enemyListName: {fileID: 11400000, guid: 25cfe9ce014667a47a6a11ec15ea39e7, type: 2}
+  dangerSqrDistanceName: {fileID: 11400000, guid: d200e88cac12ca44295a3cc1aab4197b,
+    type: 2}
+  enemyManagerName: {fileID: 11400000, guid: 2b1774bf5cb8ec34cb94462202d72e83, type: 2}
+  enemyFreshnessName: {fileID: 11400000, guid: b11ee8f248a64a3458a0a7798bb0daa9, type: 2}
+  userFreshnessName: {fileID: 11400000, guid: b5a833d654a70254b95cc2bdbf8fa5d1, type: 2}

@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (characterObject == null)
+        {
+            return;
+        }
+
         inputs = Vector3.zero;
         inputs.x = Input.GetAxis("Horizontal");
         inputs.z = Input.GetAxis("Vertical");

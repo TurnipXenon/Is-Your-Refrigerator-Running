@@ -388,10 +388,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b551f7e71e4e67a49b02995e7b068468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rootNode: {fileID: 11400000, guid: b857840e6d12362429df036e1ea05524, type: 2}
+  rootNode: {fileID: 11400000, guid: 05c7acbcbce75e64bba9dda821c02806, type: 2}
+  dangerSqrMagnitude: 25
+  enemyElements: {fileID: 0}
   target: {fileID: 0}
+  retreatLocation: {fileID: 0}
   navMeshAgentName: {fileID: 11400000, guid: ddfc5c45f13d03a4a9a801377d035cd2, type: 2}
   locationName: {fileID: 11400000, guid: 5488823810578f04485eb2d9a9c3b255, type: 2}
+  userTransformName: {fileID: 11400000, guid: 6583ddf65c6b3bc4f85aee2b2818a0be, type: 2}
+  enemyListName: {fileID: 11400000, guid: 25cfe9ce014667a47a6a11ec15ea39e7, type: 2}
+  dangerSqrMagnitudeName: {fileID: 11400000, guid: d200e88cac12ca44295a3cc1aab4197b,
+    type: 2}
+  retreatLocationName: {fileID: 11400000, guid: 7e3658d097ab4bc40916d892d2f3150c,
+    type: 2}
 --- !u!1001 &3871581565438823511
 PrefabInstance:
   m_ObjectHideFlags: 0

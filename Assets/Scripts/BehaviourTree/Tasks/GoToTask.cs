@@ -8,36 +8,31 @@ public class GoToTask : Task
     public ContextName navMeshAgentName;
     public ContextName locationName;
 
-    private NavMeshAgent agent;
-    private Transform location;
-
     /** Running: On the way
         Success: Reached destination
         Failure: Can't go */
     public override NodeState Evaluate(Context context)
     {
-        agent = context.Get<NavMeshAgent>(navMeshAgentName);
-        location = context.Get<Transform>(locationName);
+        NavMeshAgent agent = context.Get<NavMeshAgent>(navMeshAgentName);
+         Transform location = context.Get<Transform>(locationName);
 
         if (locationName == null || agent == null)
         {
             SetNodeState(context, NodeState.Failure);
-            return nodeState;
+            return NodeState.Failure;
         }
 
         agent.destination = location.position;
         agent.isStopped = false;
+        NodeState nodeState = NodeState.Running;
 
         if (agent.remainingDistance <= agent.stoppingDistance
             && !agent.pathPending)
         {
-            SetNodeState(context, NodeState.Success);
-        }
-        else
-        {
-            SetNodeState(context, NodeState.Running);
+            nodeState = NodeState.Success;
         }
 
+        SetNodeState(context, nodeState);
         return nodeState;
     }
 }

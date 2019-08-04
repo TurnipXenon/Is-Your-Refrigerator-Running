@@ -4,18 +4,17 @@ using System.Collections.Generic;
 
 // from https://hub.packtpub.com/building-your-own-basic-behavior-tree-tutorial/
 // by Natasha Mathur
+[CreateAssetMenu(menuName ="BehaviourTree/Composite/Sequence")]
 public class Sequence : Composite
 {
     /** Must provide an initial set of children nodes to work */
     public Sequence(List<Node> nodes) : base(nodes) { }
 
-    private bool anyChildRunning;
-
     /* If any child node returns a failure, the entire node fails. Whence all  
      * nodes return a success, the node reports a success. */
     public override NodeState Evaluate(Context context)
     {
-        anyChildRunning = false;
+        bool anyChildRunning = false;
 
         foreach (Node node in nodeList)
         {
@@ -23,13 +22,14 @@ public class Sequence : Composite
             {
                 case NodeState.Failure:
                     SetNodeState(context, NodeState.Failure);
-                    return nodeState;
+                    return NodeState.Failure;
                 case NodeState.Success:
                     continue;
                 case NodeState.Running:
                     anyChildRunning = true;
                     continue;
                 default:
+                    SetNodeState(context, NodeState.Success);
                     return NodeState.Success;
             }
         }
@@ -37,11 +37,11 @@ public class Sequence : Composite
         if (anyChildRunning)
         {
             SetNodeState(context, NodeState.Running);
+            return NodeState.Running;
         }
         else {
             SetNodeState(context, NodeState.Success);
+            return NodeState.Success;
         }
-
-        return nodeState;
     }
 }

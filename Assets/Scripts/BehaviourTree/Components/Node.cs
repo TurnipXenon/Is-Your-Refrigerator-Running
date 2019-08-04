@@ -10,12 +10,9 @@ using UnityEngine;
 public abstract class Node : ScriptableObject
 {
 #if UNITY_EDITOR
-    [Multiline]
+    [TextArea]
     public string developerDescription;
 #endif
-
-    [HideInInspector]
-    public NodeState nodeState;
 
     /* The constructor for the node */
     public Node() { }
@@ -25,15 +22,13 @@ public abstract class Node : ScriptableObject
 
     protected void SetNodeState(Context context, NodeState nodeState)
     {
-        this.nodeState = nodeState;
-
 #if UNITY_EDITOR
         if (this == context.rootNode)
         {
             context.nodeStateDict.Clear();
         }
 
-        context.nodeStateDict[this.GetInstanceID()] = this.nodeState;
+        context.nodeStateDict[this.GetInstanceID()] = nodeState;
 #endif
     }
 }

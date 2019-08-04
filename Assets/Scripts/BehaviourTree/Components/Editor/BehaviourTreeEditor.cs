@@ -53,17 +53,20 @@ public class BehaviourTreeEditor : EditorWindow
         }
         else
         {
-            SerializedObject serializedObject = new SerializedObject(node);
-            System.Type type = node.GetType();
-            foreach (FieldInfo item in type.GetFields())
+            if (node != null)
             {
-                if (item.FieldType == typeof(ContextName))
+                SerializedObject serializedObject = new SerializedObject(node);
+                System.Type type = node.GetType();
+                foreach (FieldInfo item in type.GetFields())
                 {
-                    SerializedProperty property = serializedObject.FindProperty(item.Name);
-                    EditorGUILayout.PropertyField(property);
+                    if (item.FieldType == typeof(ContextName))
+                    {
+                        SerializedProperty property = serializedObject.FindProperty(item.Name);
+                        EditorGUILayout.PropertyField(property);
+                    }
                 }
+                serializedObject.ApplyModifiedProperties();
             }
-            serializedObject.ApplyModifiedProperties();
         }
 
         EditorGUILayout.Space();

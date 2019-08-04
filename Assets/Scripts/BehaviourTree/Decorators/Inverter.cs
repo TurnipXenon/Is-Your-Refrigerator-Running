@@ -8,19 +8,22 @@ public class Inverter : Decorator
      * as running */
     public override NodeState Evaluate(Context context)
     {
+        NodeState result = NodeState.Success;
+
         switch (node.Evaluate(context))
         {
             case NodeState.Failure:
             default:
-                SetNodeState(context, NodeState.Success);
                 break;
             case NodeState.Success:
-                SetNodeState(context, NodeState.Failure);
+                result = NodeState.Failure;
                 break;
             case NodeState.Running:
-                SetNodeState(context, NodeState.Running);
+                result = NodeState.Running;
                 break;
         }
-        return nodeState;
+
+        SetNodeState(context, result);
+        return result;
     }
 }

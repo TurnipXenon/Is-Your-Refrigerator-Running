@@ -14,6 +14,8 @@ public class Selector : Composite
      * it will report a failure instead.*/
     public override NodeState Evaluate(Context context)
     {
+        NodeState nodeState = NodeState.Failure;
+
         foreach (Node node in nodeList)
         {
             switch (node.Evaluate(context))
@@ -22,10 +24,10 @@ public class Selector : Composite
                     continue;
                 case NodeState.Success:
                     SetNodeState(context, NodeState.Success);
-                    return nodeState;
+                    return NodeState.Success;
                 case NodeState.Running:
                     SetNodeState(context, NodeState.Running);
-                    return nodeState;
+                    return NodeState.Running;
                 default:
                     continue;
             }
