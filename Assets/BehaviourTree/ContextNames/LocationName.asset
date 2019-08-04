@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ea6d25d6d8fdd43af55861a35b95b3, type: 3}
   m_Name: LocationName
   m_EditorClassIdentifier: 
-  DeveloperDescription: 
+  DeveloperDescription: Type of Transform expected

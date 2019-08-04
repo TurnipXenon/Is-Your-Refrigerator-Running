@@ -20,11 +20,11 @@ public class Home : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (gameState.mode == gameplayMode && collision.gameObject.CompareTag(TAG_CHARACTER))
+        if (gameState.mode == gameplayMode && other.gameObject.CompareTag(TAG_CHARACTER))
         {
-            CharacterManager characterManager = collision.gameObject.GetComponent<CharacterManager>();
+            CharacterManager characterManager = other.gameObject.GetComponent<CharacterManager>();
             if (characterManager)
             {
                 if (characterManager.team == this.team)

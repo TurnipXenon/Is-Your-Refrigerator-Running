@@ -22,14 +22,14 @@ public class BehaviourTreeEditor : EditorWindow
     {
         scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
-        context = Selection.activeGameObject?.GetComponent<Brain>().context;
+        context = Selection.activeGameObject?.GetComponent<Brain>()?.context;
         rootNode = EditorGUILayout.ObjectField(rootNode, typeof(Node), false) as Node;
-
-        rootNode.developerDescription = 
-            EditorGUILayout.TextField("Description", rootNode.developerDescription);
 
         if (rootNode != null)
         {
+
+            rootNode.developerDescription =
+                EditorGUILayout.TextField("Description", rootNode.developerDescription);
             DisplayNode(rootNode);
         }
 

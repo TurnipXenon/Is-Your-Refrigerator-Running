@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Brain))]
 public class CharacterManager : MonoBehaviour
 {
     private const float TIME_NOT_SET = -1f;

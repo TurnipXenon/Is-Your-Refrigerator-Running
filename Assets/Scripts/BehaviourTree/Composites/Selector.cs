@@ -21,18 +21,16 @@ public class Selector : Composite
                 case NodeState.Failure:
                     continue;
                 case NodeState.Success:
-                    return NodeState.Success;
+                    SetNodeState(context, NodeState.Success);
+                    return nodeState;
                 case NodeState.Running:
-                    return NodeState.Running;
+                    SetNodeState(context, NodeState.Running);
+                    return nodeState;
                 default:
                     continue;
             }
         }
-        return NodeState.Failure;
-    }
 
-    public void Output()
-    {
-        Debug.Log("Output size: " + nodeList.Count.ToString());
+        return nodeState;
     }
 }

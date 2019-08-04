@@ -11,12 +11,16 @@ public class Inverter : Decorator
         switch (node.Evaluate(context))
         {
             case NodeState.Failure:
-                return NodeState.Success;
+            default:
+                SetNodeState(context, NodeState.Success);
+                break;
             case NodeState.Success:
-                return NodeState.Failure;
+                SetNodeState(context, NodeState.Failure);
+                break;
             case NodeState.Running:
-                return NodeState.Running;
+                SetNodeState(context, NodeState.Running);
+                break;
         }
-        return NodeState.Success;
+        return nodeState;
     }
 }

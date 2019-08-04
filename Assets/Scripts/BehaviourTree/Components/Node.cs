@@ -14,8 +14,8 @@ public abstract class Node : ScriptableObject
     public string developerDescription;
 #endif
 
-    /* Delegate that returns the state of the node.*/
-    public delegate NodeState NodeReturn();
+    [HideInInspector]
+    public NodeState nodeState;
 
     /* The constructor for the node */
     public Node() { }
@@ -25,13 +25,15 @@ public abstract class Node : ScriptableObject
 
     protected void SetNodeState(Context context, NodeState nodeState)
     {
+        this.nodeState = nodeState;
+
 #if UNITY_EDITOR
         if (this == context.rootNode)
         {
             context.nodeStateDict.Clear();
         }
 
-        context.nodeStateDict[this.GetInstanceID()] = nodeState;
+        context.nodeStateDict[this.GetInstanceID()] = this.nodeState;
 #endif
     }
 }

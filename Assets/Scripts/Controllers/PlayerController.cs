@@ -16,9 +16,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask ground;
 
     [Header("Components")]
-    public new Rigidbody rigidbody;
-    public new Transform transform;
-    public Transform stableBody;
+    public CharacterManager characterManager;
 
     [Header("References")]
     public Transform cameraTransform;
@@ -33,9 +31,19 @@ public class PlayerController : MonoBehaviour
     public Vector3 cameraForward;
     public Vector3 outputSpeed;
 
+    private CharacterManager mainCharacterManager;
+    private new Rigidbody rigidbody;
+    private new Transform transform;
+    private NavMeshAgent agent;
+    private Brain brain;
+
+    #region Callbacks
     private void Start()
     {
-        groundChecker = rigidbody.GetComponent<Transform>()?.GetChild(0);
+        if (characterManager != null)
+        {
+            Possess(characterManager);
+        }
     }
 
     private void Update()
@@ -59,5 +67,42 @@ public class PlayerController : MonoBehaviour
         rigidbody.AddTorque(Mathf.Clamp(outputSpeed.magnitude, 0f, maximumPitch), 
             inputs.x * torqueInfluence * Time.deltaTime, 0f, ForceMode.VelocityChange);
         rigidbody.AddForce(outputSpeed, ForceMode.Impulse);
+    }
+    #endregion
+
+    private void Possess(CharacterManager characterManager)
+    {
+        if (mainCharacterManager != null)
+        {
+            Depossess();
+        }
+
+        mainCharacterManager = characterManager;
+        brain = mainCharacterManager.GetComponent<Brain>();
+        agent = mainCharacterManager.GetComponent<NavMeshAgent>();
+        rigidbody = mainCharacterManager.GetComponent<Rigidbody>();
+        transform = mainCharacterManager.GetComponent<Transform>();
+
+        brain.enabled = false;
+        agent.enabled = false;
+        rigidbody.isKinematic = false;
+    }
+
+    private void Depossess()
+    {
+        if (mainCharacterManager == null)
+        {
+            return;
+        }
+
+        agent.enabled = true;
+        rigidbody.isKinematic = true;
+        brain.enabled = true;
+
+        agent = null;
+        brain = null;
+        mainCharacterManager = null;
+        rigidbody = null;
+        transform = null;
     }
 }
