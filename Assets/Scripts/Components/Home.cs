@@ -24,7 +24,7 @@ public class Home : MonoBehaviour
     {
         if (gameState.mode == gameplayMode && other.gameObject.CompareTag(TAG_CHARACTER))
         {
-            CharacterManager characterManager = other.gameObject.GetComponent<CharacterManager>();
+            CharacterManager characterManager = other.gameObject.GetComponentInChildren<CharacterManager>();
             if (characterManager)
             {
                 if (characterManager.team == this.team)

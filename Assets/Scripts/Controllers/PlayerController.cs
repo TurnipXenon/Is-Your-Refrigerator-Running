@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask ground;
 
     [Header("Components")]
-    public CharacterManager characterManager;
+    public GameObject characterObject;
 
     [Header("References")]
     public Transform cameraTransform;
@@ -40,9 +40,9 @@ public class PlayerController : MonoBehaviour
     #region Callbacks
     private void Start()
     {
-        if (characterManager != null)
+        if (characterObject != null)
         {
-            Possess(characterManager);
+            Possess(characterObject);
         }
     }
 
@@ -70,18 +70,18 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    private void Possess(CharacterManager characterManager)
+    private void Possess(GameObject characterObject)
     {
         if (mainCharacterManager != null)
         {
             Depossess();
         }
 
-        mainCharacterManager = characterManager;
-        brain = mainCharacterManager.GetComponent<Brain>();
-        agent = mainCharacterManager.GetComponent<NavMeshAgent>();
-        rigidbody = mainCharacterManager.GetComponent<Rigidbody>();
-        transform = mainCharacterManager.GetComponent<Transform>();
+        mainCharacterManager = characterObject.GetComponentInChildren<CharacterManager>();
+        brain = characterObject.GetComponent<Brain>();
+        agent = characterObject.GetComponent<NavMeshAgent>();
+        rigidbody = characterObject.GetComponent<Rigidbody>();
+        transform = characterObject.GetComponent<Transform>();
 
         brain.enabled = false;
         agent.enabled = false;

@@ -7,7 +7,7 @@ using UnityEngine;
 public class ContextName : ScriptableObject
 {
 #if UNITY_EDITOR
-    [Multiline]
+    [TextArea]
     public string DeveloperDescription = "";
 #endif
 }
