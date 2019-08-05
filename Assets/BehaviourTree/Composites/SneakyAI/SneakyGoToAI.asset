@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eac104bb80d9314ea4d0cdac2b2bb0d, type: 3}
+  m_Name: SneakyGoToAI
+  m_EditorClassIdentifier: 
+  developerDescription: 
+  nodeList:
+  - {fileID: 11400000, guid: 3bfb9115460320349b1b3cdcc84140ed, type: 2}
+  - {fileID: 11400000, guid: 4fef44b34a4fd27468bf24e0f2657299, type: 2}
+  - {fileID: 11400000, guid: 3fd409b24b3a0d6489977ce66bbca8b1, type: 2}
+  - {fileID: 11400000, guid: b857840e6d12362429df036e1ea05524, type: 2}

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa864978c0ddfe14c83ebfbe90d334c8, type: 3}
+  m_Name: GoToRandom
+  m_EditorClassIdentifier: 
+  developerDescription: 
+  navMeshAgentName: {fileID: 11400000, guid: ddfc5c45f13d03a4a9a801377d035cd2, type: 2}
+  locationName: {fileID: 11400000, guid: 1802d5c212560594bb96c7fb5ca3cdb3, type: 2}

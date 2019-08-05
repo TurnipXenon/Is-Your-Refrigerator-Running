@@ -19,6 +19,19 @@ public class Context
         hashtable[contextName] = value;
     }
 
+    public void Remove(ContextName keyName)
+    {
+        if (hashtable.Contains(keyName))
+        {
+            hashtable.Remove(keyName);
+        }
+    }
+
+    public bool Exists(ContextName keyName)
+    {
+        return hashtable.Contains(keyName);
+    }
+
     public T Get<T>(ContextName contextName)
     {
         System.Object returnObject = hashtable[contextName];
