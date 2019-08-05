@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d9a3cf6cfb66044884df826adcd0194, type: 3}
-  m_Name: EnemyNearAI
+  m_Name: WaitSequence
   m_EditorClassIdentifier: 
   developerDescription: 
   nodeList:
-  - {fileID: 11400000, guid: 315ec1aa21de01e428ac41b0c262c613, type: 2}
-  - {fileID: 11400000, guid: 374bc377d1a1f8f408674c5daf3dfc82, type: 2}
+  - {fileID: 11400000, guid: e2cea9112bf184b428be52a97c4d4dff, type: 2}
+  - {fileID: 11400000, guid: 5448873d9f15d7f478dbbb48a1c204d4, type: 2}

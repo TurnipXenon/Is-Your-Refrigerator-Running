@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77417b93c5bace14f8c1db4def326d3e, type: 3}
-  m_Name: FreshnessCompareAI
+  m_Name: FreshnessComparisonAI
   m_EditorClassIdentifier: 
-  developerDescription: The last element assumes its not equal and the AI's freshness
-    is not also greater, so it can only be less than. The usual tactic here is to
-    run back to the base
+  developerDescription: 
   nodeList:
   - {fileID: 11400000, guid: a96b6b2145e20d64daea677c8abb090d, type: 2}
   - {fileID: 11400000, guid: 5b40ecd46d75e514e9ec260d601c1f64, type: 2}

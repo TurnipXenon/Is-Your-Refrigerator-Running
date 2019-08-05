@@ -391,6 +391,7 @@ MonoBehaviour:
   rootNode: {fileID: 11400000, guid: 05c7acbcbce75e64bba9dda821c02806, type: 2}
   dangerSqrMagnitude: 25
   enemyElements: {fileID: 0}
+  patientAITimer: 10
   target: {fileID: 0}
   retreatLocation: {fileID: 0}
   navMeshAgentName: {fileID: 11400000, guid: ddfc5c45f13d03a4a9a801377d035cd2, type: 2}
@@ -401,6 +402,7 @@ MonoBehaviour:
     type: 2}
   retreatLocationName: {fileID: 11400000, guid: 7e3658d097ab4bc40916d892d2f3150c,
     type: 2}
+  timerEndName: {fileID: 11400000, guid: 5d08d7b07427fb14e867b825b57ab611, type: 2}
 --- !u!1001 &3871581565438823511
 PrefabInstance:
   m_ObjectHideFlags: 0

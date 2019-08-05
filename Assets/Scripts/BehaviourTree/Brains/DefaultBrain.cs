@@ -11,6 +11,7 @@ public class DefaultBrain : Brain
     [Header("Variables")]
     public float dangerSqrMagnitude = 25f;
     public GameObject enemyElements;
+    public float patientAITimer = 10f;
 
     [Header("Contexts")]
     public Transform target;
@@ -23,6 +24,7 @@ public class DefaultBrain : Brain
     public ContextName enemyListName;
     public ContextName dangerSqrMagnitudeName;
     public ContextName retreatLocationName;
+    public ContextName timerEndName;
 
     private new void Start()
     {
@@ -43,6 +45,7 @@ public class DefaultBrain : Brain
         context.Set<List<Transform>>(enemyListName, enemyList);
         context.Set<float>(dangerSqrMagnitudeName, dangerSqrMagnitude);
         context.Set<Transform>(retreatLocationName, retreatLocation);
+        context.Set<float>(timerEndName, Time.time + patientAITimer);
     }
 
     private new void Update()

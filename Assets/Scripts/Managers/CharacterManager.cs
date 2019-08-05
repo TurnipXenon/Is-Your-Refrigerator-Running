@@ -27,6 +27,8 @@ public class CharacterManager : MonoBehaviour
     public float freshnessEndTime = TIME_NOT_SET;
     [HideInInspector]
     public float lastRefreshTime = TIME_NOT_SET;
+    [HideInInspector]
+    public bool needsRefresh;
 
     private void Start()
     {

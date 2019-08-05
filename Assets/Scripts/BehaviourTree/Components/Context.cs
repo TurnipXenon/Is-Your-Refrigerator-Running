@@ -36,4 +36,18 @@ public class Context
         }
         return default;
     }
+
+    public T Get<T>(ContextName keyName, T defaultValueName)
+    {
+        System.Object returnObject = hashtable[keyName];
+        if (returnObject is T)
+        {
+            return (T)returnObject;
+        }
+        else if (returnObject != null)
+        {
+            Debug.LogWarning(keyName.ToString() + " has a different type from what's being asked");
+        }
+        return defaultValueName;
+    }
 }

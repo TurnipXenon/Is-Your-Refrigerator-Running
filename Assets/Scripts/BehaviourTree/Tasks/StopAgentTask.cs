@@ -17,7 +17,6 @@ public class StopAgentTask : Task
 
         if (agent != null)
         {
-            Debug.Log("Stopping");
             agent.isStopped = true;
             nodeState = NodeState.Success;
         }
