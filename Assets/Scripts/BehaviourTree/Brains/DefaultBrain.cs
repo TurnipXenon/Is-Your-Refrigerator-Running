@@ -28,9 +28,9 @@ public class DefaultBrain : Brain
     public ContextName timerEndName;
     public ContextName randomLocationSet;
 
-    private new void Start()
+    private new void OnEnable()
     {
-        base.Start();
+        base.OnEnable();
 
         List<Transform> enemyList = new List<Transform>();
         foreach (Transform child in enemyElements.GetComponentInChildren<Transform>())
@@ -49,6 +49,11 @@ public class DefaultBrain : Brain
         context.Set<Transform>(retreatLocationName, retreatLocation);
         context.Set<float>(timerEndName, Time.time + patientAITimer);
         context.Set<Transform[]>(randomLocationSet, randomLocationContainer.GetComponentsInChildren<Transform>());
+    }
+
+    private new void Start()
+    {
+        base.Start();
     }
 
     private new void Update()

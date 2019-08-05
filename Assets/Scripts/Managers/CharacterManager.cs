@@ -18,6 +18,7 @@ public class CharacterManager : MonoBehaviour
 
     [Header("Components")]
     public GameObject parent;
+    public Transform destroyList;
 
     [Header("States")]
     public GameState gameState;
@@ -28,6 +29,7 @@ public class CharacterManager : MonoBehaviour
     public float lastRefreshTime = TIME_NOT_SET;
     [HideInInspector]
     public bool needsRefresh;
+    private PlayerController playerController;
 
     private void Start()
     {
@@ -83,13 +85,49 @@ public class CharacterManager : MonoBehaviour
 
     private void DestroyCharacter()
     {
-        Destroy(parent);
+        parent.transform.parent = destroyList;
+
+        Brain brain = parent.GetComponent<Brain>();
+        if (brain != null)
+        {
+            brain.enabled = false;
+        }
+
+        NavMeshAgent agent = parent.GetComponent<NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.enabled = false;
+        }
+
+        Rigidbody rigidbody = parent.GetComponent<Rigidbody>();
+        if (rigidbody != null)
+        {
+            rigidbody.isKinematic = false;   
+        }
+
+        if (playerController != null)
+        {
+            playerController.Depossess();
+        }
+
+        parent.SetActive(false);
     }
 
     public void Refresh()
     {
         lastRefreshTime = Time.time;
         freshnessEndTime = Time.time + gameState.freshnessDuration;
+    }
+
+    public void Possess(PlayerController playerController)
+    {
+        this.playerController = playerController;
+    }
+
+    public void Depossess()
+    {
+        this.playerController.Depossess();
+        this.playerController = null;
     }
 
     #region Events

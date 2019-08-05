@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Cinemachine;
 
 // from https://medium.com/ironequal/unity-character-controller-vs-rigidbody-a1e243591483
 public class PlayerController : MonoBehaviour
@@ -15,8 +16,12 @@ public class PlayerController : MonoBehaviour
     public float maximumPitch = 20f;
     public LayerMask ground;
 
+    [Header("Variables")]
+    public int currentIndex;
+
     [Header("Components")]
-    public GameObject characterObject;
+    public Transform characterList;
+    public CinemachineFreeLook freeLookCamera;
 
     [Header("References")]
     public Transform cameraTransform;
@@ -32,24 +37,73 @@ public class PlayerController : MonoBehaviour
     public Vector3 outputSpeed;
 
     private CharacterManager mainCharacterManager;
-    private new Rigidbody rigidbody;
     private new Transform transform;
+    private new Rigidbody rigidbody;
     private NavMeshAgent agent;
     private Brain brain;
+
+    private bool isSafeToPossess = false;
 
     #region Callbacks
     private void Start()
     {
-        if (characterObject != null)
+        TryPossessing();
+    }
+
+    private void TryPossessing()
+    {
+        Transform[] gameObjects = characterList.GetComponentsInChildren<Transform>();
+        if (gameObjects.Length > 1)
         {
-            Possess(characterObject);
+            int offset = 0;
+            Brain characterBrain = null;
+            while (characterBrain == null && offset < gameObjects.Length)
+            {
+                int value = ((currentIndex + offset) % (gameObjects.Length - 1)) + 1;
+                if (value < 1)
+                {
+                    value += gameObjects.Length;
+                }
+                else
+                {
+                    characterBrain = gameObjects[value].gameObject.GetComponent<Brain>();
+                    offset++;
+                }
+            }
+
+            if (characterBrain != null)
+            {
+                Possess(characterBrain.gameObject);
+                freeLookCamera.Follow = characterBrain.transform;
+                freeLookCamera.LookAt = characterBrain.transform;
+            }
         }
+    }
+
+    private void Possess(int rawInput)
+    {
+        if (Mathf.Abs(rawInput) != 1)
+        {
+            return;
+        }
+
+        currentIndex += rawInput;
+        TryPossessing();
     }
 
     private void Update()
     {
-        if (characterObject == null)
+        if (transform == null)
         {
+            isSafeToPossess = false;
+            TryPossessing();
+        }
+
+        if (isSafeToPossess && Input.GetButtonDown("Possess"))
+        {
+            isSafeToPossess = false;
+            int rawValue = (int)Input.GetAxisRaw("Possess");
+            Possess(rawValue);
             return;
         }
 
@@ -83,6 +137,7 @@ public class PlayerController : MonoBehaviour
         }
 
         mainCharacterManager = characterObject.GetComponentInChildren<CharacterManager>();
+        mainCharacterManager.Possess(this);
         brain = characterObject.GetComponent<Brain>();
         agent = characterObject.GetComponent<NavMeshAgent>();
         rigidbody = characterObject.GetComponent<Rigidbody>();
@@ -91,9 +146,10 @@ public class PlayerController : MonoBehaviour
         brain.enabled = false;
         agent.enabled = false;
         rigidbody.isKinematic = false;
+        isSafeToPossess = true;
     }
 
-    private void Depossess()
+    public void Depossess()
     {
         if (mainCharacterManager == null)
         {
