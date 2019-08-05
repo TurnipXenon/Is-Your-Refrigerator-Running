@@ -23,7 +23,6 @@ public class CharacterManager : MonoBehaviour
     public GameState gameState;
     public Mode gameplayMode;
 
-    [HideInInspector]
     public float freshnessEndTime = TIME_NOT_SET;
     [HideInInspector]
     public float lastRefreshTime = TIME_NOT_SET;

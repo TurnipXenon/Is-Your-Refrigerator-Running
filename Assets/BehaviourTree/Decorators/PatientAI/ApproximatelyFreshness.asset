@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   developerDescription: If my freshness is greater than enemy freshness, then chase
     enemy
-  node: {fileID: 11400000, guid: cb48d45c82cf7894b8bfb8d706e88240, type: 2}
+  node: {fileID: 11400000, guid: 5448873d9f15d7f478dbbb48a1c204d4, type: 2}
   valueName: {fileID: 11400000, guid: b5a833d654a70254b95cc2bdbf8fa5d1, type: 2}
   toBeComparedName: {fileID: 11400000, guid: b11ee8f248a64a3458a0a7798bb0daa9, type: 2}
   desiredResult: 0

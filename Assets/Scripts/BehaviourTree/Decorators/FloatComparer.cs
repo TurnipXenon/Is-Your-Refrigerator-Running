@@ -28,22 +28,21 @@ public class FloatComparer : Decorator
         {
             if (desiredResult == Result.Approximately)
             {
-                SetNodeState(context, NodeState.Success);
+                result = NodeState.Success;
             }
         }
         else if (value < toBeCompared)
         {
             if (desiredResult == Result.LessThan)
             {
-                Debug.Log("We are less than");
-                SetNodeState(context, NodeState.Success);
+                result = NodeState.Success;
             }
         }
         else
         {
             if (desiredResult == Result.GreaterThan)
             {
-                SetNodeState(context, NodeState.Success);
+                result = NodeState.Success;
             }
         }
 

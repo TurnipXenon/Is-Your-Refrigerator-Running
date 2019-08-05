@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CharacterAI
   m_EditorClassIdentifier: 
   developerDescription: 
-  nodeState: 1
   nodeList:
   - {fileID: 11400000, guid: 104fb9659729dde4f9556ec146215e13, type: 2}
+  - {fileID: 11400000, guid: 4523dd9e6db73ad41a5ed964f107fa16, type: 2}
   - {fileID: 11400000, guid: b857840e6d12362429df036e1ea05524, type: 2}

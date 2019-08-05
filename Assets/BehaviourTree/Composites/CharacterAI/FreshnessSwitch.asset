@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d9a3cf6cfb66044884df826adcd0194, type: 3}
-  m_Name: EnemyNearAI
+  m_Script: {fileID: 11500000, guid: 7eab77c88fc9d9943a630382be12b2cf, type: 3}
+  m_Name: FreshnessSwitch
   m_EditorClassIdentifier: 
   developerDescription: 
   nodeList:
-  - {fileID: 11400000, guid: 315ec1aa21de01e428ac41b0c262c613, type: 2}
-  - {fileID: 11400000, guid: 0311945648a327b4bb780ab8b4405717, type: 2}
+  - {fileID: 11400000, guid: a96b6b2145e20d64daea677c8abb090d, type: 2}
+  - {fileID: 11400000, guid: 5b40ecd46d75e514e9ec260d601c1f64, type: 2}
+  - {fileID: 11400000, guid: cb48d45c82cf7894b8bfb8d706e88240, type: 2}

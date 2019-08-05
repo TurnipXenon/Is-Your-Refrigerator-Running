@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d9a3cf6cfb66044884df826adcd0194, type: 3}
-  m_Name: EnemyNearAI
+  m_Script: {fileID: 11500000, guid: aa864978c0ddfe14c83ebfbe90d334c8, type: 3}
+  m_Name: TargetEnemyTask
   m_EditorClassIdentifier: 
   developerDescription: 
-  nodeList:
-  - {fileID: 11400000, guid: 315ec1aa21de01e428ac41b0c262c613, type: 2}
-  - {fileID: 11400000, guid: 0311945648a327b4bb780ab8b4405717, type: 2}
+  navMeshAgentName: {fileID: 11400000, guid: ddfc5c45f13d03a4a9a801377d035cd2, type: 2}
+  locationName: {fileID: 11400000, guid: 553335f181304784ab25566dd718ea66, type: 2}

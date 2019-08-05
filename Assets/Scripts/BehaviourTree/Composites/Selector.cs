@@ -33,6 +33,7 @@ public class Selector : Composite
             }
         }
 
+        SetNodeState(context, nodeState);
         return nodeState;
     }
 }

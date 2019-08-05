@@ -14,9 +14,9 @@ public class GoToTask : Task
     public override NodeState Evaluate(Context context)
     {
         NavMeshAgent agent = context.Get<NavMeshAgent>(navMeshAgentName);
-         Transform location = context.Get<Transform>(locationName);
+        Transform location = context.Get<Transform>(locationName);
 
-        if (locationName == null || agent == null)
+        if (location == null || agent == null)
         {
             SetNodeState(context, NodeState.Failure);
             return NodeState.Failure;

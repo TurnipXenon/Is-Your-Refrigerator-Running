@@ -36,7 +36,6 @@ public class IsEnemyNearTask : Task
                     context.Set<CharacterManager>(enemyManagerName, enemyManager);
                     context.Set<float>(enemyFreshnessName, enemyManager.freshnessEndTime);
                     context.Set<float>(userFreshnessName, userTransform.GetComponentInChildren<CharacterManager>().freshnessEndTime);
-
                     break;
                 }
             }

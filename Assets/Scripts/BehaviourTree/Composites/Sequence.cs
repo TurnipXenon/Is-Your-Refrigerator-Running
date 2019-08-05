@@ -21,6 +21,7 @@ public class Sequence : Composite
             switch (node.Evaluate(context))
             {
                 case NodeState.Failure:
+                default:
                     SetNodeState(context, NodeState.Failure);
                     return NodeState.Failure;
                 case NodeState.Success:
@@ -28,9 +29,6 @@ public class Sequence : Composite
                 case NodeState.Running:
                     anyChildRunning = true;
                     continue;
-                default:
-                    SetNodeState(context, NodeState.Success);
-                    return NodeState.Success;
             }
         }
 
